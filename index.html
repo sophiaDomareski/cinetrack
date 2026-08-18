@@ -7,36 +7,81 @@
 </head>
 <body>
     <!--Titulo da página -->
-    <h1>CineTrack</h1>
-    <!--Titulo e apresentação -->>
-    <p><strong>CineTrack</strong> é seu gerenciador pessoal
-    de filmes: registre o que já viu, o que esta vendo e o que quer ver.</p>
+    <header>
+        <h1>CineTrack</h1>
+        <input type="search" aria-label="Buscar filme">
+        <button>+ Adicionar</button>
+    </header>
     
-    <!-- Subtópico, apresentando possíveis status-->>
-    <h2>Status possíveis</h2>
-    <ul id = "lista-status">  
-        <li class = "item-status">Assistido</li>
-        <li class = "item-status">Assistindo</li>
-        <li class = "item-status">Quero assistir</li>
-    </ul>
+    <nav aria-label="Filtro de status">
+        <button class ="ativo">Todos</button>
+        <button>Assistido</button>
+        <button>Assistindo</button>
+        <button>Quero assistir</button>
+    </nav>
 
-    <!-- Lista de filmes favoritos-->
-    <h2>Meus filmes favoritos</h2>
-    <ol>
-        <li>A Origem</li>
-        <li>Os infiltrados</li>
-        <li>Amnesia</li>
-    </ol>
+    <main>
+        <section id="lista" aria-live="polite">
+            <article class="card"> 
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHiSs1SYeqNKzIbCg1YP3i3CQ1uxK76HtxjmugR5MZTOYvl7opXBZKhA2u&s=10" alt="Poster do filme">
+                <h2>A Origem</h2> 
+                <p>ano e genero</p>
+                <p>Nota &#9733 &#9733 &#9733 &#9733 &#9733</p>
+                <span>Assistido</span>
+                <button>Editar</button>
+                <button>Remover</button>
+            </article>
+            <article class="card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-HY1u10MrAK-ASA7MhYB-CHrpHoqdhuXWXy55_yhx_A&s=10" alt="poster do filme">
+                <h2>Parasita</h2>
+                <p>ano e genero</p>
+                <p>Nota &#9733 &#9733 &#9733 &#9733 &#9733</p>
+                <span>Assistido</span>
+                <button>Editar</button>
+                <button>Remover</button>
+            </article>
+            <article class="card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKG54UK_Amjjpme3PpYw84D0BHxVp8A0Olf6hXG1yocc-ou5FppVrUbqim&s=10" alt="poster do filme">
+                <h2>O Auto da Compadecida</h2>
+                <p>ano e genero</p>
+                <p>Nota &#9733 &#9733 &#9733 &#9733 &#9733</p>
+                <span>Assistido</span>
+                <button>Editar</button>
+                <button>Remover</button>
+            </article>
+            <article class="card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQ06KMiQ6osrlrsl1EA4CHQ3S_Kc75lOuq-8w64bl2Ag&s=10" alt="poster do filme">
+                <h2>Duna: Parte Dois</h2>
+                <p>ano e genero</p>
+                <p>Nota &#9733 &#9733 &#9733 &#9733 &#9733</p>
+                <span>Assistido</span>
+                <button>Editar</button>
+                <button>Remover</button>
+            </article>
+            <article class="card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_sE1bp-Ayi3sZLlSQXrdhNdRt1XV3ULngZZx9LoUP9A&s=10" alt="poster filme Interestelar">
+                <h2>Interestelar</h2>
+                <p>ano e genero</p>              
+                <p>Nota &#9733 &#9733 &#9733 &#9733 &#9733</p>
+                <span>Assistido</span>
+                <button>Editar</button>
+                <button>Remover</button>
+            </article>
+            <article class="card">
+                <img src="data:image/jpeg;base64,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" alt="poster do filme">
+                <h2>Cidade de Deus</h2>
+                <p>ano e genero</p>
+                <p>Nota &#9733 &#9733 &#9733 &#9733 &#9733</p>
+                <span>Assistido</span>
+                <button>Editar</button>
+                <button>Remover</button>
+            </article>
+        </section>
 
-    <!-- Informações sobre o favorito -->
-    <h2>Sobre a Origem</h2>
-    <dl>
-        <dt>Diretor</dt> <dd>Christopher Nolan</dd>
-        <dt>Ano</dt> <dd>2010</dd>
-        <dt>Genero</dt> <dd>Ficção Científica</dd>
-    </dl>
-    <p> &copy; 2025 CineTrack </p>
+        <footer><a href="adicionar.html">Adicionar filme</a></footer>
+    </main>
 
-    <a href="adicionar.html">+Adicionar filme</a>
+    
+    <p> &copy; 2026 CineTrack </p>
 </body>
 </html>
