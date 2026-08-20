@@ -1,0 +1,26 @@
+/*amarelo FCFDAF*/
+/* azul escuro 16324F*/
+/* azul turquesa 6CCFF6*/
+
+* { box-sizing: border-box;
+margin: 0; padding: 0; }
+
+html { font-size: 16px; }
+body { font-family: system-ui, sans-serif;
+line-height: 1.5; }
+
+img { max-width: 100%; display: block; }
+button { font: inherit; cursor: pointer; }
+
+header {
+    background-color: #16324F;
+    color: white; 
+    padding: 1rem;
+}
+
+.card{ 
+    border: 1px solid #ddd;
+    padding: 16px; 
+    border-radius: 8px;
+    box-shadow: 0 1px 4px #0002;
+}
