@@ -6,21 +6,62 @@
 margin: 0; padding: 0; }
 
 html { font-size: 16px; }
-body { font-family: system-ui, sans-serif;
-line-height: 1.5; }
+body { 
+    font-family: system-ui, sans-serif;
+    line-height: 1.5;   
+    color: #16324F;
+    background: whitesmoke;
+}
 
 img { max-width: 100%; display: block; }
 button { font: inherit; cursor: pointer; }
 
 header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    flex-wrap: wrap;
     background-color: #16324F;
     color: white; 
     padding: 1rem;
 }
 
 .card{ 
+    background-color: white;
     border: 1px solid #ddd;
     padding: 16px; 
     border-radius: 8px;
     box-shadow: 0 1px 4px #0002;
+    width: 200px;
+    flex-direction: column;
+    gap: 8px;
+}
+
+nav{
+    display: flex;
+    gap: 8px;
+    padding: 6px 14px;
+
+}
+
+nav button{
+    border: 1px solid #1A3A5C;
+    background: white;
+    border-radius: 999px;
+}
+
+nav button.ativo{
+    background-color: #1A3A5C;
+    color: white;
+}
+
+#lista{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.acoes{
+    margin-top: auto;
 }
