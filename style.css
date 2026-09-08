@@ -14,7 +14,29 @@ body {
 }
 
 img { max-width: 100%; display: block; }
-button { font: inherit; cursor: pointer; }
+
+button { 
+    font: inherit; 
+    cursor: pointer; 
+}
+
+button:hover{
+    background-color:#1A3A5C;
+    color: white;
+}
+
+button:focus-visible{
+    outline: 3px solid #4A90E2;
+    outline-offset: 2px;
+}
+
+:root{
+    --cor-primaria: #FCFDAF;
+    --raio: 8px;
+    --espaço: 16px;
+    --cor-secundaria: #16324F;
+    --cor-terciaria: #6CCFF6;
+}
 
 header {
     display: flex;
@@ -87,6 +109,35 @@ nav button.ativo{
     }
 }
 
+@media (prefers-color-scheme: dark){
+    :root{
+        --cor-primaria:var(--cor-secundaria);
+        --cor-secundaria:var(--cor-terciaria);
+        --cor-terciaria:var(var(--cor-primaria);)
+    }
+}
+
 .acoes{
     margin-top: auto;
+}
+
+.badge {
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-weight: bold;
+}
+
+.badge.assistido {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.badge.assistindo {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.badge.quero {
+    background-color: #dbeafe;
+    color: #1e40af;
 }
