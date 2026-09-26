@@ -10,11 +10,13 @@
     <!--Titulo da página -->
     <header>
         <h1>CineTrack</h1>
-        <input type="search" aria-label="Buscar filme">
+        <input type="search" placeholder="Buscar filme" aria-label="Buscar filme">
+        <a href="adicionar.html">
         <button>
             <span class = "icone-adicionar">+</span>
             <span class = "texto-adicionar">+Adicionar</span>
         </button>
+        </a>
     </header>
     
     <nav aria-label="Filtro de status">
@@ -30,8 +32,8 @@
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHiSs1SYeqNKzIbCg1YP3i3CQ1uxK76HtxjmugR5MZTOYvl7opXBZKhA2u&s=10" alt="Poster do filme">
                 <h2>A Origem</h2> 
                 <p>ano e genero</p>
-                <p>Nota &#9733 &#9733 &#9733 &#9733 &#9733</p>
-                <span class="badge assistido">Assistido</span>
+                <div class="nota" id="nota-primeiro-filme">★★★☆☆</div>
+                <span class="badge assistido" id="badge-primeiro-filme">Assistido</span>
                 <button><div class="acoes">Editar</div></button>
                 <button><div class="acoes">Remover</div></button>
             </article>
@@ -82,10 +84,11 @@
             </article>
         </section>
 
-        <footer><a href="adicionar.html">Adicionar filme</a></footer>
     </main>
 
-    
-    <p> &copy; 2026 CineTrack </p>
+    <footer>
+        <small id="rodape"></small>
+    </footer>    
+    <script src="app.js"></script>
 </body>
 </html>
