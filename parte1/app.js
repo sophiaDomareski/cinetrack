@@ -1,6 +1,7 @@
 
 /* const badge = document.querySelector("#badge-primeiro-filme");
 const nota = document.querySelector("#nota-primeiro-filme"); */
+const nav = document.querySelector("nav");
 const TOTAL = 6;
 const rodape = document.querySelector("#rodape");
 const filmesIniciais = [
@@ -65,6 +66,8 @@ const filmesIniciais = [
         "comentario": ""
     }
 ]
+let filmes = [...filmesIniciais];
+
 rodape.textContent = `Cinetrack © 2026 · ${TOTAL} filmes cadastrados.`;
 
 /* badge.textContent = rotuloStatus("quero");
@@ -82,10 +85,6 @@ function rotuloStatus(status) {
     }
     //return status;
 }
-
-//funcao que copiei do slide e nao sei o contexto;
-//const alvo = document.querySelector(".card .badge");
-//alvo.textContent = rotuloStatus("assistido");
 
 const estrelas = (nota) => {
     let resultado = "";
@@ -105,11 +104,33 @@ function renderizarCards(filmes){
         <h2>${f.titulo}</h2> 
         <p>${f.ano} · ${f.genero}</p>
         <div class="nota">${estrelas(f.nota)}</div>
-        <span class="badge ${f.status}>${rotuloStatus(f.status)}</span>
-        <button><div class="acoes">Editar</div></button>
-        <button><div class="acoes">Remover</div></button>
+        <span class="badge ${f.status}">${rotuloStatus(f.status)}</span>
+
+        <button class="btn-editar"><div class="acoes">Editar</div></button> 
+        <button class="btn-remover"><div class="acoes">Remover</div></button>
+
     </article>
     `).join(""); 
     document.querySelector("#lista").innerHTML = cards;
 }
-renderizarCards(filmesIniciais);
+
+renderizarCards(filmes);
+
+lista.addEventListener("click", (e) => {
+    const botao = e.target.closest(".btn-remover");
+    if (!botao) return; // clicou em outra coisa
+    if (!confirm("Remover este filme?")) return;
+    const card = botao.closest(".card");
+    const id = Number(card.dataset.id);
+    filmes = filmes.filter((f) => f.id !== id);
+    renderizarCards(filmes);
+});
+
+nav.addEventListener("click", (e) => {
+    const botao = e.target.closest("button");
+    if(!botao) return;
+    nav.querySelector(".ativo").classList.remove("ativo");
+    botao.classList.add("ativo");
+    const status = botao.dataset.status;
+    renderizarCards(filmes.filter((f) => status === "todos" || f.status === status));
+})
