@@ -11,12 +11,12 @@
     <header>
         <h1>CineTrack</h1>
         <input type="search" placeholder="Buscar filme" aria-label="Buscar filme">
-        <a href="adicionar.html">
-        <button>
+        
+        <button type>
             <span class = "icone-adicionar">+</span>
             <span class = "texto-adicionar">+Adicionar</span>
         </button>
-        </a>
+        
     </header>
     
     <nav aria-label="Filtro de status">
@@ -31,6 +31,45 @@
         </section>
 
     </main>
+    <div id="modal" hidden>
+    <div class="modal-conteudo">
+        <h2>Adicionar Filme</h2>
+        <form id="form-filme">
+            <label for="titulo">Título</label>
+            <input id="titulo" name="titulo" type="text" required>
+
+            <label for="ano">Ano</label>
+            <input id="ano" name="ano" type="number" min="1888" max="2030">
+
+            <label for="genero">Gênero</label>
+            <input id="genero" name="genero" type="text" required>
+
+            <label for="url">URL do pôster</label>
+            <input id="url" name="poster" type="text">
+
+            <label>Status
+                <select required id="status" name="status">
+                    <option value="quero">Quero assistir</option>
+                    <option value="assistindo">Assistindo</option>
+                    <option value="assistido">Assistido</option>
+                </select>
+            </label>
+
+            <label>
+                Nota
+                <input name="nota" type="number" min="1" max="5">
+            </label>
+            <label>
+                Comentário
+                <textarea name="comentario" id="comentario" rows="3"
+                    placeholder="Minha opinião sobre esse filme..."></textarea>
+            </label>
+            <button type="submit">Salvar</button>
+            <button type="button" id="form-button-cancelar">Cancelar</button>
+        </form>
+
+    </div>
+</div>
 
     <footer>
         <small id="rodape"></small>

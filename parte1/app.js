@@ -1,16 +1,16 @@
-
-/* const badge = document.querySelector("#badge-primeiro-filme");
-const nota = document.querySelector("#nota-primeiro-filme"); */
 const nav = document.querySelector("nav");
 const TOTAL = 6;
 const rodape = document.querySelector("#rodape");
+const lista = document.querySelector("#lista"); // confira o ID no HTML
+const modal = document.querySelector("#modal");
+const form = document.querySelector("#form-filme");
 const filmesIniciais = [
     {
         "id": 1,
         "titulo": "A Origem ",
         "ano": 2010,
         "genero": "Ficção científica ",
-        "poster": "https://placehold.co/200x300?text=A+Origem",
+        "poster": "https://image.tmdb.org/t/p/original/ms1bJvwa4BJycBakQ7afcedGlwY.jpg",
         "nota": 5,
         "status": "assistido",
         "comentario": "Revejo sempre."
@@ -20,7 +20,7 @@ const filmesIniciais = [
         "titulo": "Parasita",
         "ano": 2019,
         "genero": "Suspense",
-        "poster": "https://placehold.co/200x300?text=Parasita",
+        "poster": "https://image.tmdb.org/t/p/original/bik2BZjmVjeE6LOZqtuTjb4jJPQ.jpg",
         "nota": 4,
         "status": "assistido",
         "comentario": ""
@@ -30,17 +30,17 @@ const filmesIniciais = [
         "titulo": "O Auto da Compadecida ",
         "ano": 2000,
         "genero": "Comédia",
-        "poster": "https://placehold.co/200x300?text=O+Auto+da+Compadecida",
+        "poster": "https://image.tmdb.org/t/p/original/y3IhuITELtprMhUd7bccu629rba.jpg",
         "nota": 5,
         "status": "assistido",
         "comentario": "Classico nacional."
     },
     {
         "id": 4,
-        "titulo": "Duna: Parte Dois",
+        "titulo": "Duna",
         "ano": 2024,
         "genero": " Ficção científica ",
-        "poster": " https://placehold.co/200 x300 ? text = Duna +2",
+        "poster": "https://image.tmdb.org/t/p/original/obhGsx4PE9OzsVGtIfoLAIIWGNb.jpg",
         "nota": 4,
         "status": "assistindo",
         "comentario": ""
@@ -50,7 +50,7 @@ const filmesIniciais = [
         "titulo": "Interestelar",
         "ano": 2014,
         "genero": "Ficção científica",
-        "poster": "https://placehold.co/200x300?text=Interestelar",
+        "poster": "https://image.tmdb.org/t/p/original/tR1XVa5bxgdh2bRw2u0DzrgkO2l.jpg",
         "nota": 5,
         "status": "quero",
         "comentario": ""
@@ -60,18 +60,16 @@ const filmesIniciais = [
         "titulo": "Cidade de Deus",
         "ano": 2002,
         "genero": "Drama",
-        "poster": "https://placehold.co/200x300?text=Cidade+de+Deus",
+        "poster": "https://image.tmdb.org/t/p/original/gfnXixcGC060QcG6JPxN6AMdVsq.jpg",
         "nota": 4,
         "status": "quero",
         "comentario": ""
     }
 ]
+
 let filmes = [...filmesIniciais];
 
 rodape.textContent = `Cinetrack © 2026 · ${TOTAL} filmes cadastrados.`;
-
-/* badge.textContent = rotuloStatus("quero");
-nota.textContent = estrelas(4); */
 
 function rotuloStatus(status) {
     if (status === "assistido") {
@@ -94,24 +92,55 @@ const estrelas = (nota) => {
     return resultado;
 }
 
-console.log(rotuloStatus("quero"));
-console.log(estrelas(3));
+const gerarId = (lista) => Math.max(0, ...lista.map((f) => f.id)) + 1;
+
+function criarCard(f) {
+    const card = document.createElement("article");
+    card.className = "card";
+    card.dataset.id = f.id;
+    
+    const titulo = document.createElement("h2");
+    titulo.textContent = f.titulo; // nunca HTML
+    
+    const ano = document.createElement("p");
+    ano.textContent = f.ano;
+    
+    const genero = document.createElement("p");
+    genero.textContent = f.genero;
+    
+    const poster = document.createElement("img");
+    poster.src = f.poster;
+    poster.alt = f.titulo;
+    
+    const nota = document.createElement("p");
+    nota.textContent = estrelas(f.nota);
+    
+    const status = document.createElement("p");
+    status.className = `badge ${f.status}`;
+    status.textContent = rotuloStatus(f.status);
+    
+    const comentario = document.createElement("p");
+    comentario.textContent = f.comentario;
+    
+    //Botão Editar
+    const btnEditar = document.createElement("button");
+    btnEditar.textContent = "Editar";
+    btnEditar.className = "btn-editar";
+
+    //Botão Remover
+    const btnRemover = document.createElement("button");
+    btnRemover.textContent = "Remover";
+    btnRemover.className = "btn-remover";
+
+    card.append(titulo, poster, ano, genero, nota, status, comentario, btnEditar, btnRemover);
+    return card;
+}
 
 function renderizarCards(filmes){
-   const cards = filmes.map((f) =>
-    `<article class="card" data-id="${f.id}"> 
-        <img src="${f.poster}" alt="Pôster de ${f.titulo}">
-        <h2>${f.titulo}</h2> 
-        <p>${f.ano} · ${f.genero}</p>
-        <div class="nota">${estrelas(f.nota)}</div>
-        <span class="badge ${f.status}">${rotuloStatus(f.status)}</span>
-
-        <button class="btn-editar"><div class="acoes">Editar</div></button> 
-        <button class="btn-remover"><div class="acoes">Remover</div></button>
-
-    </article>
-    `).join(""); 
-    document.querySelector("#lista").innerHTML = cards;
+   const frag = document.createDocumentFragment();
+   filmes.forEach((f) =>
+    frag.appendChild(criarCard(f)));
+   lista.replaceChildren(frag);
 }
 
 renderizarCards(filmes);
@@ -134,3 +163,84 @@ nav.addEventListener("click", (e) => {
     const status = botao.dataset.status;
     renderizarCards(filmes.filter((f) => status === "todos" || f.status === status));
 })
+
+function validarFilme(filme) {
+    const erros = [];
+    if (!filme.titulo) {
+        erros.push("Título obrigatório");
+    }
+    if (filme.ano < 1888 || filme.ano > 2030) {
+        erros.push("Ano inválido");
+    }
+    return { valido: erros.length === 0, erros };
+}
+
+
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    
+    const dados = Object.fromEntries(new FormData(form));
+    
+    dados.ano = Number(dados.ano); // vem string!
+    dados.nota = Number(dados.nota);
+
+    const { valido, erros } = validarFilme(dados);
+    if (!valido) {
+        alert(erros.join("\n")); 
+        return;
+    }
+
+    // no submit, após validar:
+    if (editandoId !== null) {
+        filmes = filmes.map((f) =>
+            f.id === editandoId ? { ...f, ...dados } : f);
+    } else {
+        filmes = [...filmes, {id: gerarId(filmes), ...dados }];
+    }
+
+    renderizarCards(filmes);
+    fechar();
+});
+
+
+let editandoId = null; // null: adicionando
+const abrir = () => modal.hidden = false;
+const fechar = () => modal.hidden = true;
+document.querySelector("header button").addEventListener("click", () => {
+    editandoId = null;
+    form.reset();
+    abrir();
+});
+
+document.querySelector("#form-button-cancelar").addEventListener("click", () => {
+    fechar();
+});
+
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !modal.hidden) {
+        fechar();
+    }
+});
+
+lista.addEventListener("click", (e) => {
+    const botao = e.target.closest(".btn-editar");
+    if (!botao) return;
+    
+    const card = botao.closest(".card");
+    editandoId = Number(card.dataset.id);
+
+    console.log("Id do filme", editandoId);
+
+    const f = filmes.find((x) => x.id === editandoId);
+
+    form.elements.titulo.value = f.titulo;
+    form.elements.ano.value = f.ano;
+    form.elements.genero.value = f.genero;
+    form.elements.poster.value = f.poster;
+    form.elements.nota.value = f.nota;
+    form.elements.status.value = f.status;
+    form.elements.comentario.value = f.comentario;
+    // ...preencha os demais campos...
+    abrir();
+});
+

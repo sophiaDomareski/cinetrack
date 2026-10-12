@@ -25,18 +25,18 @@
         <input id="url" name="url" type = "text">
 
         <label >Status
-            <select required ="status" id="status">
-                <option value="querAssistir">Quero assistir</option>
-                <option value="assistindo">Assistido</option>
+            <select required id="status" name="status">
+                <option value="quero">Quero assistir</option>
+                <option value="assistindo">Assistindo</option>
                 <option value="assistido">Assistido</option>
             </select></label>
 
         <label >Nota<input type="number" min="1" max="5"></label>
         
-        <label>Comentário>
-            <textarea name="Comentario" id="Comentario" rows="3">
-                Minha opinião sobre esse filme...
-        </textarea></label>
+        <label for="comentario">Comentário</label>
+        <textarea name="comentario" id="comentario" rows="3">
+            Minha opinião sobre esse filme...
+        </textarea>
 
         <button type="submit">Salvar</button>
         <button type="button">Cancelar</button>

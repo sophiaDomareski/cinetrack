@@ -144,7 +144,7 @@ nav button.ativo{
     :root{
         --cor-primaria:var(--cor-secundaria);
         --cor-secundaria:var(--cor-terciaria);
-        --cor-terciaria:var(var(--cor-primaria);)
+        --cor-terciaria:var((--cor-primaria);)
     }
 }
 
@@ -171,4 +171,87 @@ nav button.ativo{
 .badge.quero {
     background-color: #dbeafe;
     color: #1e40af;
+}
+
+form {
+    max-width: 500px;
+    margin: 24px auto;
+    padding: 24px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px #0002;
+
+    display: grid;
+    gap: 8px;
+}
+
+form label {
+    font-weight: bold;
+}
+
+form input,
+form select,
+form textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font: inherit;
+}
+
+form textarea {
+    resize: vertical;
+}
+
+.botoes-formulario {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.botoes-formulario button {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+}
+
+#modal {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+}
+
+#modal[hidden]{display:none;}
+
+.modal-conteudo {
+    background-color: white;
+    padding: 24px;
+    border-radius: 12px;
+    width: 100%;
+    max-width:420px;
+    max-height: 90vh;
+    overflow: auto;
+}
+
+/* .modal-conteudo input,
+.modal-conteudo select,
+.modal-conteudo textarea {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+} */
+
+@keyframes aparecer {
+    from {opacity: 0;
+        transform: translateY(8px);}
+    to { opacity: 1;
+        transform: translateY(0);}
+}
+.modal-conteudo {
+    animation: aparecer 200ms ease;
 }
