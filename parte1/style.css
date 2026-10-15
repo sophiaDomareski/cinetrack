@@ -340,3 +340,38 @@ nav button.ativo{
 .modal-conteudo {
     animation: aparecer 200ms ease;
 }
+
+@media print {
+    :root {
+        --cor-primaria: #000;
+        --cor-secundaria: #000;
+        --cor-terciaria: #000;
+        --cor-fundo: #fff;
+        --cor-superficie: #fff;
+        --cor-texto: #000;
+        --cor-borda: #000;
+    }
+    
+    body {
+        background: white;
+        color: black;
+    }
+
+    header input,
+    header button,
+    nav,
+    .btn-editar,
+    .btn-remover,
+    footer {
+        display: none !important;
+    }
+
+    .card {
+        box-shadow: none;
+        break-inside: avoid;
+    }
+
+    #modal {
+        display: none !important;
+    }
+}
