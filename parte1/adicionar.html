@@ -10,36 +10,52 @@
     <a href="index.html">Voltar</a>
     <h1>Adicionar filme</h1>
 
-    <form id="form-filme">
+
+<form id="form-filme">
+    <div class="campo">
         <label for="titulo">Título</label>
-        <input id="titulo" name="titulo" type = "text" required>
+        <input id="titulo" name="titulo" type="text" required>
+    </div>
 
+    <div class="campo">
         <label for="ano">Ano</label>
-        <input id="ano" name="ano" 
-                type = "number" min="1888" max="2030">
+        <input id="ano" name="ano" type="number" min="1888" max="2030">
+    </div>
 
+    <div class="campo">
         <label for="genero">Gênero</label>
-        <input id="genero" name="genero" type = "text" required>
+        <input id="genero" name="genero" type="text" required>
+    </div>
 
+    <div class="campo">
         <label for="url">URL do pôster</label>
-        <input id="url" name="url" type = "text">
+        <input id="url" name="url" type="text">
+    </div>
 
-        <label >Status
-            <select required id="status" name="status">
-                <option value="quero">Quero assistir</option>
-                <option value="assistindo">Assistindo</option>
-                <option value="assistido">Assistido</option>
-            </select></label>
+    <div class="campo">
+        <label for="status">Status</label>
+        <select required id="status" name="status">
+            <option value="quero">Quero assistir</option>
+            <option value="assistindo">Assistindo</option>
+            <option value="assistido">Assistido</option>
+        </select>
+    </div>
 
-        <label >Nota<input type="number" min="1" max="5"></label>
-        
+    <div class="campo">
+        <label for="nota">Nota</label>
+        <input id="nota" name="nota" type="number" min="1" max="5">
+    </div>
+
+    <div class="campo">
         <label for="comentario">Comentário</label>
-        <textarea name="comentario" id="comentario" rows="3">
-            Minha opinião sobre esse filme...
-        </textarea>
+        <textarea name="comentario" id="comentario" rows="3" placeholder="Minha opinião sobre esse filme..."></textarea>
+    </div>
 
-        <button type="submit">Salvar</button>
+    <div class="acoes">
         <button type="button">Cancelar</button>
-    </form>
+        <button type="submit">Salvar</button>
+    </div>
+</form>
+
 </body>
 </html>

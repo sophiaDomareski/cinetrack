@@ -1,9 +1,23 @@
+//Declaração de constantes
 const nav = document.querySelector("nav");
 const TOTAL = 6;
 const rodape = document.querySelector("#rodape");
-const lista = document.querySelector("#lista"); // confira o ID no HTML
+const lista = document.querySelector("#lista"); 
 const modal = document.querySelector("#modal");
 const form = document.querySelector("#form-filme");
+const busca = document.querySelector("header input");
+const CHAVE = "cinetrack:filmes";
+
+const aoDigitar = (e) => {
+    termoAtual = e.target.value;
+    atualizar();
+};
+
+busca.addEventListener("input", debounce(aoDigitar, 300));
+
+let termoAtual ="";
+let statusAtual = "todos";
+
 const filmesIniciais = [
     {
         "id": 1,
@@ -65,9 +79,7 @@ const filmesIniciais = [
         "status": "quero",
         "comentario": ""
     }
-]
-
-let filmes = [...filmesIniciais];
+];
 
 rodape.textContent = `Cinetrack © 2026 · ${TOTAL} filmes cadastrados.`;
 
@@ -120,6 +132,7 @@ function criarCard(f) {
     status.textContent = rotuloStatus(f.status);
     
     const comentario = document.createElement("p");
+    comentario.className = "comentario";
     comentario.textContent = f.comentario;
     
     //Botão Editar
@@ -132,7 +145,17 @@ function criarCard(f) {
     btnRemover.textContent = "Remover";
     btnRemover.className = "btn-remover";
 
-    card.append(titulo, poster, ano, genero, nota, status, comentario, btnEditar, btnRemover);
+     // Container dos botões
+    const acoes = document.createElement("div");
+    acoes.className = "acoes";
+    acoes.appendChild(btnEditar);
+    acoes.appendChild(btnRemover);
+
+    card.append(
+        titulo, poster, ano, genero, nota,
+        status, comentario, acoes
+    );
+
     return card;
 }
 
@@ -143,25 +166,33 @@ function renderizarCards(filmes){
    lista.replaceChildren(frag);
 }
 
+let filmes = carregar();
 renderizarCards(filmes);
 
 lista.addEventListener("click", (e) => {
     const botao = e.target.closest(".btn-remover");
     if (!botao) return; // clicou em outra coisa
+
     if (!confirm("Remover este filme?")) return;
+
     const card = botao.closest(".card");
     const id = Number(card.dataset.id);
     filmes = filmes.filter((f) => f.id !== id);
-    renderizarCards(filmes);
+    
+    ///statusAtual = botao.dataset.status;
+    atualizar();
+    salvar();
 });
 
 nav.addEventListener("click", (e) => {
     const botao = e.target.closest("button");
     if(!botao) return;
+
     nav.querySelector(".ativo").classList.remove("ativo");
     botao.classList.add("ativo");
-    const status = botao.dataset.status;
-    renderizarCards(filmes.filter((f) => status === "todos" || f.status === status));
+
+    statusAtual = botao.dataset.status;
+    atualizar();
 })
 
 function validarFilme(filme) {
@@ -198,8 +229,9 @@ form.addEventListener("submit", (e) => {
         filmes = [...filmes, {id: gerarId(filmes), ...dados }];
     }
 
-    renderizarCards(filmes);
+    atualizar();
     fechar();
+    salvar();
 });
 
 
@@ -240,7 +272,41 @@ lista.addEventListener("click", (e) => {
     form.elements.nota.value = f.nota;
     form.elements.status.value = f.status;
     form.elements.comentario.value = f.comentario;
-    // ...preencha os demais campos...
+
     abrir();
+    salvar();
 });
 
+function aplicarFiltros(lista, opcoes) {
+    const termo = opcoes.termo.toLowerCase();
+
+    return lista.
+        filter((f) => 
+            f.titulo.toLowerCase().includes(termo))
+        .filter((f) =>
+            opcoes.status === "todos" || f.status === opcoes.status);
+}
+
+function atualizar(){
+    const visiveis = aplicarFiltros(
+        filmes, {termo: termoAtual, status: statusAtual}
+    );
+    renderizarCards(visiveis);
+}
+
+function debounce(fn, ms = 300) {
+    let timer;
+    return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn(...args), ms);
+    };
+}
+
+const salvar = () =>
+    localStorage.setItem(CHAVE, JSON.stringify(filmes));
+
+function carregar() {
+    const txt = localStorage.getItem(CHAVE);
+    return txt
+    ? JSON.parse(txt) : [...filmesIniciais];
+}
