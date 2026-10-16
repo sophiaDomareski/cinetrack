@@ -8,6 +8,7 @@ const form = document.querySelector("#form-filme");
 const busca = document.querySelector("header input");
 const CHAVE = "cinetrack:filmes";
 const ordenar = document.querySelector("#ordenar");
+const botaoTema = document.querySelector("#alternar-tema");
 
 const aoDigitar = (e) => {
     termoAtual = e.target.value;
@@ -339,4 +340,15 @@ function ordenarFilmes(lista, criterio) {
 ordenar.addEventListener("change", () => {
     ordemAtual = ordenar.value;
     atualizar();
+});
+
+botaoTema.addEventListener("click", () => {
+    const escuro = document.body.classList.toggle("modo-escuro");
+
+    botaoTema.textContent = escuro ? "☀" : "☾";
+
+    botaoTema.setAttribute(
+        "aria-label",
+        escuro ? "Ativar modo claro" : "Ativar modo escuro"
+    );
 });
