@@ -7,6 +7,7 @@ const modal = document.querySelector("#modal");
 const form = document.querySelector("#form-filme");
 const busca = document.querySelector("header input");
 const CHAVE = "cinetrack:filmes";
+const ordenar = document.querySelector("#ordenar");
 
 const aoDigitar = (e) => {
     termoAtual = e.target.value;
@@ -17,6 +18,7 @@ busca.addEventListener("input", debounce(aoDigitar, 300));
 
 let termoAtual ="";
 let statusAtual = "todos";
+let ordemAtual = "titulo";
 
 const filmesIniciais = [
     {
@@ -291,7 +293,10 @@ function atualizar(){
     const visiveis = aplicarFiltros(
         filmes, {termo: termoAtual, status: statusAtual}
     );
-    renderizarCards(visiveis);
+
+    const ordenados = ordenarFilmes(visiveis, ordemAtual);
+
+    renderizarCards(ordenados);
 }
 
 function debounce(fn, ms = 300) {
@@ -310,3 +315,28 @@ function carregar() {
     return txt
     ? JSON.parse(txt) : [...filmesIniciais];
 }
+
+function ordenarFilmes(lista, criterio) {
+    const copia = [...lista];
+
+    copia.sort((a, b) => {
+        if (criterio === "titulo") {
+            return a.titulo.localeCompare(b.titulo);
+        }
+
+        if (criterio === "ano") {
+            return a.ano - b.ano;
+        }
+
+        if (criterio === "nota") {
+            return b.nota - a.nota;
+        }
+    });
+
+    return copia;
+}
+
+ordenar.addEventListener("change", () => {
+    ordemAtual = ordenar.value;
+    atualizar();
+});
